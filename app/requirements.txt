@@ -1,0 +1,8 @@
+fastAPi
+pandas
+psycopg2-binary
+unidecode
+python-multipart
+uvicorn
+sqlalchemy
+pytest
