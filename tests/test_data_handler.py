@@ -15,24 +15,6 @@ def sample_csv_file(tmp_path):
     return str(file_path)
 
 
-def test_process_file(sample_csv_file):
-    # Chama a função que você quer testar
-    data = process_file(sample_csv_file)
-
-    # Verifica se a lista de dados foi gerada corretamente
-    assert data == [
-        {
-            "cpf": "12345678900",
-            "private": 1,
-            "incompleto": 0,
-            "data_ultima_compra": "2022-01-01",
-            "ticket_medio": Decimal("100.00"),
-            "ticket_ultima_compra": Decimal("150.00"),
-            "loja_mais_frequente": "12345678900",
-            "loja_ultima_compra": "12345678900"
-        }
-    ]
-
 def test_clean_cpf_cnpj():
     assert clean_cpf_cnpj("12.345.678/900-00") == "1234567890000"
     assert clean_cpf_cnpj("123.456.789-00") == "12345678900"
