@@ -62,7 +62,27 @@ Case feito em cima do processo técnico da NeoWay pensando em seu processo selet
 
     Adicione o seu path como um sufixo para "/files/base_teste.txt" e assim ter o caminho real do arquivo do teste do case.
 
-3. Encerre o projeto:
+### Visualizando os dados persistidos no banco
+
+1. Pegando id do container case-date-persistence-db-1
+    ```bash
+    docker-compose ps
+    ```
+2. Acessando o terminal do container 
+    ```bash
+    docker exec -it {id} /bin/bash 
+    ```
+3. Dentro do Container acesso o banco 
+    ```bash
+    psql -U postgres -d persistencia 
+    ```
+4. Por fim faça um select na tabela
+    ```sql
+    SELECT * FROM dados;
+    ```
+### Encerrando projeto
+
+1. Encerre com projeto:
 
     ```bash
     docker-compose down
