@@ -12,7 +12,7 @@ connection_params = {
 }
 
 
-def save_to_database(data: list) -> str:
+def save_to_database(data: list):
     """Persistencia no banco
 
     Args:
