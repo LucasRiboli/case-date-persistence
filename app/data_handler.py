@@ -1,6 +1,6 @@
 import pandas as pd
 from decimal import Decimal
-
+import logging
 
 def process_file(file: any) -> list:
     """Processo de tratamento de dados e validacao
@@ -11,41 +11,44 @@ def process_file(file: any) -> list:
     Returns:
         list: lista de dados a serem persistidos
     """
-    with open(file.filename, "wb") as f:
-        f.write(file.file.read())
+    try:
+        with open(file.filename, "wb") as f:
+            f.write(file.file.read())
 
-    df = pd.read_csv(
-        file.filename, delim_whitespace=True, skiprows=1, header=None,
-        names=[
-            "CPF",
-            "PRIVATE",
-            "INCOMPLETO",
-            "DATA DA ÚLTIMA COMPRA",
-            "TICKET MÉDIO",
-            "TICKET DA ÚLTIMA COMPRA",
-            "LOJA MAIS FREQUÊNTE",
-            "LOJA DA ÚLTIMA COMPRA"])
+        df = pd.read_csv(
+            file.filename, delim_whitespace=True, skiprows=1, header=None,
+            names=[
+                "CPF",
+                "PRIVATE",
+                "INCOMPLETO",
+                "DATA DA ÚLTIMA COMPRA",
+                "TICKET MÉDIO",
+                "TICKET DA ÚLTIMA COMPRA",
+                "LOJA MAIS FREQUÊNTE",
+                "LOJA DA ÚLTIMA COMPRA"])
 
-    df.columns = df.columns.str.strip()
-    data = []
-    # Intera lista de dados para persistencia baseado no dataframe
-    for _, row in df.iterrows():
-        if validate_document(row["CPF"]):
-            data.append({
-                "cpf": clean_cpf_cnpj(row["CPF"]),
-                "private": row["PRIVATE"],
-                "incompleto": row["INCOMPLETO"],
-                "data_ultima_compra": treat_null_value(
-                    row["DATA DA ÚLTIMA COMPRA"]),
-                "ticket_medio": tickets_to_decimal(row["TICKET MÉDIO"]),
-                "ticket_ultima_compra": tickets_to_decimal(row[
-                    "TICKET DA ÚLTIMA COMPRA"]),
-                "loja_mais_frequente": clean_cpf_cnpj(
-                    treat_null_value(row["LOJA MAIS FREQUÊNTE"])),
-                "loja_ultima_compra": clean_cpf_cnpj(
-                    treat_null_value(row["LOJA DA ÚLTIMA COMPRA"])),
-            })
-    return data
+        df.columns = df.columns.str.strip()
+        data = []
+        # Intera lista de dados para persistencia baseado no dataframe
+        for _, row in df.iterrows():
+            if validate_document(row["CPF"]):
+                data.append({
+                    "cpf": clean_cpf_cnpj(row["CPF"]),
+                    "private": row["PRIVATE"],
+                    "incompleto": row["INCOMPLETO"],
+                    "data_ultima_compra": treat_null_value(
+                        row["DATA DA ÚLTIMA COMPRA"]),
+                    "ticket_medio": tickets_to_decimal(row["TICKET MÉDIO"]),
+                    "ticket_ultima_compra": tickets_to_decimal(row[
+                        "TICKET DA ÚLTIMA COMPRA"]),
+                    "loja_mais_frequente": clean_cpf_cnpj(
+                        treat_null_value(row["LOJA MAIS FREQUÊNTE"])),
+                    "loja_ultima_compra": clean_cpf_cnpj(
+                        treat_null_value(row["LOJA DA ÚLTIMA COMPRA"])),
+                })
+        return data
+    except Exception as e:
+        logging.ERROR(e)
 
 
 def clean_cpf_cnpj(cpf_cnpj: str) -> str:
