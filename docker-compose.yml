@@ -9,7 +9,7 @@ services:
     networks:
       - my_network
     volumes:
-      - ./files:/app/files  # Mapeamento da pasta 'files' no host para o contêiner
+      - ./files:/app/files
   db:
     image: postgres
     environment:
