@@ -57,10 +57,10 @@ Case feito em cima do processo técnico da NeoWay pensando em seu processo selet
 - **Exemplo de Uso:**
 
     ```bash
-    curl -X POST -F "file=@files/base_teste.txt" http://localhost:8000/persistence/
+    curl -X POST -F "file=@/app/files/base_teste.txt" http://localhost:8000/persistence/
     ```
 
-    Adicione o seu path como um sufixo para "/files/base_teste.txt" e assim ter o caminho real do arquivo do teste do case.
+    Adicione o seu path como um sufixo para "/app/files/base_teste.txt" e assim ter o caminho real do arquivo do teste do case.
 
 ### Visualizando os dados persistidos no banco
 
