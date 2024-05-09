@@ -1,7 +1,6 @@
 # FastAPI Data Persistence
 
 Projeto voltado para persistencia de dados em um banco de dados relacional (PostgreSQL).
-Case feito em cima do processo técnico da NeoWay pensando em seu processo seletivo. 
 
 ## Requisitos Obrigatórios
 
